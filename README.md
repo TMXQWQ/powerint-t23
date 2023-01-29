@@ -1,4 +1,4 @@
-# Powerint t23
+# Powerint t23(基于Powerint DOS 386)
 
 #### 参与贡献
 
