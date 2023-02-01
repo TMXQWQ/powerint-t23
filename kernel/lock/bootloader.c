@@ -3,6 +3,8 @@
 #include <fs.h>
 
 bool isbootloader(char* path){
-    if()
+//     if(){
+
+//     }
     return false;
 }
