@@ -2,6 +2,7 @@
 //目前实现了：fat12文件系统
 #include <dos.h>
 #include <fs.h>
+#include <bootloader.h>
 static inline int get_fat12_date(unsigned short year,
                                  unsigned short month,
                                  unsigned short day) {
@@ -38,12 +39,17 @@ void read_fat(unsigned char* img, int* fat, unsigned char* ff) {
   return;
 }
 void write_fat(unsigned char* img, int* fat) {
-  int i, j = 0;
-  for (i = 0; i < 3072; i += 2) {
-    img[j + 0] = fat[i + 0] & 0xff;
-    img[j + 1] = (fat[i + 0] >> 8 | fat[i + 1] << 4) & 0xff;
-    img[j + 2] = (fat[i + 1] >> 4) & 0xff;
-    j += 3;
+  if (!(isbootloader())){
+    int i, j = 0;
+    for (i = 0; i < 3072; i += 2) {
+      img[j + 0] = fat[i + 0] & 0xff;
+      img[j + 1] = (fat[i + 0] >> 8 | fat[i + 1] << 4) & 0xff;
+      img[j + 2] = (fat[i + 1] >> 4) & 0xff;
+      j += 3;
+    }
+  }
+  else{
+    printf("you cannot write this file or these files")
   }
   return;
 }
